@@ -54,8 +54,10 @@ class Ball(
         val newVelY = velocityY + 0.5f * (a0y + a1y) * dT
 
         // l = v0 * dt + (1/6) * (3a0 + a1) * dt^2
-        val dx = velocityX * dT + (1f/6f) * (3f * a0x + a1x) * dT * dT
-        val dy = velocityY * dT + (1f/6f) * (3f * a0y + a1y) * dT * dT
+        val speedFactor = 500f  // adjust experimentally
+        val dx = (velocityX * dT + (1f/6f) * (3f * a0x + a1x) * dT * dT) * speedFactor
+        val dy = (velocityY * dT + (1f/6f) * (3f * a0y + a1y) * dT * dT) * speedFactor
+
 
         // Update position
         posX += dx
@@ -118,8 +120,9 @@ class Ball(
         // TODO: implement the reset function
         // (Reset posX, posY, velocityX, velocityY, accX, accY, isFirstUpdate)
         // Center of the screen
-        posX = backgroundWidth / 2f
-        posY = backgroundHeight / 2f
+        posX = backgroundWidth / 2f - ballSize / 2f
+        posY = backgroundHeight / 2f - ballSize / 2f
+
 
         // Zero velocities + accelerations
         velocityX = 0f
